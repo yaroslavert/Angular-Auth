@@ -1,0 +1,17 @@
+.formContainer{
+    max-width: 500px;
+    margin: 0 auto;
+    @media screen and (max-width: 700px) {
+        max-width: 95%;
+    }
+}
+.buffer-top{
+    margin-top: 20px;
+}
+.card-body{
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+[role="cursor"] {
+    cursor: pointer;
+}

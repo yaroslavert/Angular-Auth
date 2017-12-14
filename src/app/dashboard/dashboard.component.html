@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-lg-4" *ngFor="let post of posts">
+      <h1 class="mt-4">{{post.title}}</h1>
+      <p class="lead">
+        by
+        <a class="text text-info">{{post.User.firstName}} {{post.User.lastName}}</a>
+      </p>
+      <hr>
+      <p>Posted on {{post.createdAt | date : 'medium'}}</p>
+      <hr>
+      <p class="lead">
+        {{post.body}}
+      </p>
+      <hr>
+      <div class="card my-4">
+        <h5 class="card-header">Leave a Comment:</h5>
+        <div class="card-body">
+          <form [formGroup]="commentData" (submit)="onSubmit(post)">
+            <div class="form-group">
+              <textarea class="form-control" rows="3" formControlName="message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+      <hr>
+      <div class="media mb-4" *ngFor="let comment of post.Comments">
+        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        <div class="media-body">
+          <h5 class="mt-0">{{comment.User.firstName}} {{comment.User.lastName}}</h5>
+          {{comment.message}}
+        </div>
+      </div>
+  </div>
+</div>
