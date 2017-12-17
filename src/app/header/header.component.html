@@ -15,6 +15,9 @@
         <a class="nav-link" [routerLink]="['/registration']" routerLinkActive="active">Registraion</a>
       </li>
       <li class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" [routerLink]="['/admin']" routerLinkActive="active">Admin Panel</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated">
           <a class="nav-link" role="cursor" (click)="logout()">Logout</a>
        </li>
     </ul>

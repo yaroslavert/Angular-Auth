@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { ToastOptions } from 'ng2-toastr';
-import { AlertModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 
 import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { NotificationService } from './services/notification.service';
 import { AuthenticationInterceptor } from './auth/services/auth.Interceptor';
 import { CanActivateUserService } from './auth/services/can-activate-user.service';
 import { appStoreProviders } from './redux/redux.config';
+import { AdminModule } from './admin/admin.module';
 
 export function loadApp(authService) {
   return function() {
@@ -42,6 +43,8 @@ export class CustomOption extends ToastOptions {
     AuthModule,
     DashboardModule,
     HeaderModule,
+    AdminModule,
+    ModalModule.forRoot(),
     AppRoutingModule,
   ],
   providers: [
