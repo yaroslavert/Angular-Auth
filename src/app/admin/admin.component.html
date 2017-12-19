@@ -5,41 +5,18 @@
       </select>
   </div>
   <div class="col-3">
-    <button class="btn btn-info" (click)="openModal(modalTemplate, 'create', '')">Create Post</button>
+    <button class="btn btn-info" (click)="addPost()">Create Post</button>
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-4" *ngFor="let post of posts">
-    <h1 class="mt-4">{{post.title}}</h1>
-    <p class="lead">
-      by
-      <a class="text text-info">{{post.User.firstName}} {{post.User.lastName}}</a>
-    </p>
-    <hr>
-    <p>Posted on {{post.createdAt | date : 'medium'}}</p>
-    <hr>
-    <p class="lead">
-      {{post.body}}
-    </p>
-    <div class="btn-group" role="group">
-      <button class="btn btn-info" (click)="openModal(modalTemplate, 'update', post)" role="cursor">Edit Post</button>
-      <button class="btn btn-danger" (click)="removePost(post)" role="cursor">Delete Post</button>
-      <button class="btn btn-danger" (click)="openModalComment(modalTemplateComment, 'create', '', '')" role="cursor">Add Comment</button>
-    </div>
-    <hr>
-    <div class="media mb-4" *ngFor="let comment of post.Comments">
-      <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-      <div class="media-body">
-        <h5 class="mt-0">{{comment.User.firstName}} {{comment.User.lastName}}</h5>
-        {{comment.message}}
-        <hr>
-        <div class="btn-group" role="group">
-            <button class="btn btn-info" (click)="openModalComment(modalTemplateComment, 'update', comment, post.id)" role="cursor">Edit Comment</button>
-            <button class="btn btn-danger" (click)="removeComment(comment)" role="cursor">Delete Comment</button>
-        </div>
-      </div>
-    </div>
+    <app-post [post]="post" (edit)="editPost(post)" 
+      (remove)="removePost(post)"
+      (addComment)="addComment(post)"
+      (OnRemoveComment)="removeComment($event, post)"
+      (OnEditComment)="editComment($event, post)"
+    ></app-post>
   </div>
 </div>
 
@@ -48,10 +25,12 @@
     <div class="form-group">
       <label>Post title</label>
       <input type="text" formControlName="title" class="form-control" aria-describedby="fileHelp">
+      <span *ngIf="(modelData.get('title').dirty || modalSubmited) && modelData.get('title').hasError('required')" class="text text-danger">Title is required</span>
     </div>
     <div class="form-group">
       <label>Post message</label>
       <textarea class="form-control" rows="3" formControlName="body"></textarea>
+      <span *ngIf="(modelData.get('body').dirty || modalSubmited) && modelData.get('body').hasError('required')" class="text text-danger">Message is required</span>
     </div>
     <button type="submit" class="btn btn-primary">{{modalMode === 'create' ? 'create' : 'update'}}</button>
   </form>
@@ -62,6 +41,7 @@
     <div class="form-group">
       <label>Comment</label>
       <input type="text" formControlName="message" class="form-control" aria-describedby="fileHelp">
+      <span *ngIf="(modalCommentData.get('message').dirty || modalCommentSubmited) && modalCommentData.get('message').hasError('required')" class="text text-danger">Comment is required</span>
     </div>
     <button type="submit" class="btn btn-primary">{{modalCommentMode === 'create' ? 'create' : 'update'}}</button>
   </form>

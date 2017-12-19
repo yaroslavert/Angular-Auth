@@ -1,0 +1,10 @@
+<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+<div class="media-body">
+  <h5 class="mt-0">{{comment.User.firstName}} {{comment.User.lastName}}</h5>
+  {{comment.message}}
+  <hr>
+  <div class="btn-group" role="group">
+      <button class="btn btn-info" (click)="_editComment()" role="cursor">Edit Comment</button>
+      <button class="btn btn-danger" (click)="_removeComment()" role="cursor">Delete Comment</button>
+  </div>
+</div>

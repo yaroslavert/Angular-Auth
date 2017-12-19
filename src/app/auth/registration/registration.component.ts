@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { NotificationService } from '../../services/notification.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class RegistrationComponent implements OnInit {
 
   public user: FormGroup;
+  public submited: Boolean = false;
 
   constructor(
     public fb: FormBuilder,
@@ -22,13 +23,20 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.fb.group({
-      firstName: [],
-      lastName: [],
-      email: [],
-      password: []
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     });
   }
   onSubmit() {
+    this.submited = true;
+
+    if (this.user.invalid) {
+      this.notificationService.warning('please check you form');
+      return;
+    }
+
     this.authService.registration(this.user.value)
       .subscribe(
         (response) => {

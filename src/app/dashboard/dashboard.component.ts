@@ -34,6 +34,11 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmit(post) {
+    if (this.commentData.invalid) {
+      this.notificationService.warning('Comment cannot empty');
+      return;
+    }
+
     const user: User = this.authService.getUser();
     const message = this.commentData.value.message;
 

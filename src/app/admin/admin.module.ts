@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { BsModalService } from 'ngx-bootstrap';
 import { AdminService } from './services/admin.service';
 import { ResolveAdminService } from './services/resolve-admin.service';
+import { PostComponent } from './post/post.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   imports: [
@@ -15,6 +17,6 @@ import { ResolveAdminService } from './services/resolve-admin.service';
     AdminRoutingModule
   ],
   providers: [BsModalService, AdminService, ResolveAdminService],
-  declarations: [AdminComponent]
+  declarations: [AdminComponent, PostComponent, CommentComponent]
 })
 export class AdminModule { }

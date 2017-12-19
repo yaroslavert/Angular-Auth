@@ -3,11 +3,14 @@
     <h2 class="form-signin-heading">Please sign in</h2>
     <div class="form-group">
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" formControlName="email" class="form-control" placeholder="Email address" required="" autofocus="">
+      <input type="email" id="inputEmail" formControlName="email" class="form-control" placeholder="Email address" autofocus="">
+      <span *ngIf="(user.get('email').dirty || submited) && user.get('email').hasError('required')" class="text text-danger">Email is required</span>
+      <span *ngIf="(user.get('email').dirty || submited) && !user.get('email').hasError('required') && user.get('email').hasError('email')" class="text text-danger">Your email is not correct</span>
     </div>
     <div class="form-group">
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" formControlName="password"class="form-control" placeholder="Password" required="">
+      <input type="password" id="inputPassword" formControlName="password"class="form-control" placeholder="Password">
+      <span *ngIf="(user.get('password').dirty || submited) && user.get('password').hasError('required')" class="text text-danger">Password is required</span>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>

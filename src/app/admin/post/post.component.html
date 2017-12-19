@@ -1,0 +1,20 @@
+<h1 class="mt-4">{{post.title}}</h1>
+<p class="lead">
+  by
+  <a class="text text-info">{{post.User.firstName}} {{post.User.lastName}}</a>
+</p>
+<hr>
+<p>Posted on {{post.createdAt | date : 'medium'}}</p>
+<hr>
+<p class="lead">
+  {{post.body}}
+</p>
+<div class="btn-group" role="group">
+  <button class="btn btn-info" (click)="editPost()" role="cursor">Edit Post</button>
+  <button class="btn btn-danger" (click)="removePost()" role="cursor">Delete Post</button>
+  <button class="btn btn-danger" (click)="_addComment()" role="cursor">Add Comment</button>
+</div>
+<hr>
+<div class="media mb-4" *ngFor="let comment of post.Comments">
+  <app-comment [comment]="comment" (removeComment)="_removeComment(comment)" (editComment)="_editComment(comment)"></app-comment>
+</div>

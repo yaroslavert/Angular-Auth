@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { NotificationService } from '../../services/notification.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   public user: FormGroup;
+  public submited: Boolean = false;
 
   constructor(
     public fb: FormBuilder,
@@ -22,11 +23,18 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.fb.group({
-      email: [],
-      password: []
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     });
   }
   onSubmit() {
+    this.submited = true;
+
+    if (this.user.invalid) {
+      this.notificationService.warning('please check you form');
+      return;
+    }
+
     this.authService.login(this.user.value)
       .subscribe(
         (response) => {

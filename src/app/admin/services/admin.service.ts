@@ -37,10 +37,17 @@ export class AdminService {
   updatePost(newPost) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers };
-    return this.http.patch(`${environment.apiUrl}/post/${newPost.id}`, JSON.stringify(newPost), options)
+    return this.http.patch(`${environment.apiUrl}/post/${newPost.id}`, JSON.stringify(newPost), options);
+  }
+  updateComment(newComment) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers: headers };
+    return this.http.patch(`${environment.apiUrl}/comment/${newComment.id}`, JSON.stringify(newComment), options);
   }
   removePost(post) {
     return this.http.delete(`${environment.apiUrl}/post/${post.id}`);
   }
-
+  removeComment(comment) {
+    return this.http.delete(`${environment.apiUrl}/comment/${comment.id}`);
+  }
 }
